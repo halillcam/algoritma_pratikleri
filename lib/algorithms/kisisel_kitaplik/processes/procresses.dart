@@ -1,5 +1,5 @@
-import 'package:dart_application_1/algorithms/kutuphane/datas/book_datas.dart';
-import 'package:dart_application_1/algorithms/kutuphane/models/book_model.dart';
+import 'package:dart_application_1/algorithms/kisisel_kitaplik/datas/book_datas.dart';
+import 'package:dart_application_1/algorithms/kisisel_kitaplik/models/book_model.dart';
 import "dart:io";
 
 class Procresses {
@@ -15,7 +15,7 @@ class Procresses {
     return int.parse(stdin.readLineSync()!);
   }
 
-  void addBook() {
+  void addBook() async {
     print("---- Kitap ekleme bölümü ----\n");
     int id = readInt("id");
     String bookName = readString("Kitap Adi");
@@ -31,8 +31,13 @@ class Procresses {
     print("----- Kitap Silme bölümü -----");
     showBooks(short: true); // Silmeden önce id ve isimleri göster
     int id = readInt("Silmek istediğiniz kitabın id'si");
-    myBooks.deleteBook(id);
-    print("Kitap silindi (veya yoksa işlem yapılmadı).\n");
+
+    try {
+      myBooks.deleteBook(id);
+      print("Kitap silindi veya yoksa işlem yapılmadı.\n");
+    } catch (e) {
+      print("Kitap Silinemedi");
+    }
   }
 
   void showBooks({bool short = false}) {
