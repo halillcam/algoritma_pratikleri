@@ -1,7 +1,7 @@
 import 'package:dart_application_1/algorithms/rent_a_car/methods/methods.dart';
 import 'package:dart_application_1/algorithms/rent_a_car/models/car_model.dart';
 
-class CarDatas extends IMethods {
+class CarDatas extends IGetCarMethods {
   @override
   List<CarModel> getCars() {
     return [

@@ -10,4 +10,10 @@ class CarModel {
     required this.model,
     required this.fiyat,
   });
+
+  // show car
+  @override
+  String toString() {
+    return "ID: $id | Marka: $marka | Model: $model | Fiyat: $fiyat";
+  }
 }
