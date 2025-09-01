@@ -1,4 +1,4 @@
-import 'package:dart_application_1/algorithms/kisisel_kitaplik/models/book_model.dart';
+import 'package:dart_application_1/dart_tekrarlarim/kisisel_kitaplik/models/book_model.dart';
 
 class BookDatas {
   final List<BookModel> _books = [];

@@ -1,6 +1,6 @@
 import 'dart:io';
-import 'package:dart_application_1/algorithms/rent_a_car/datas/car_datas.dart';
-import 'package:dart_application_1/algorithms/rent_a_car/models/car_model.dart';
+import 'package:dart_application_1/dart_tekrarlarim/rent_a_car/datas/car_datas.dart';
+import 'package:dart_application_1/dart_tekrarlarim/rent_a_car/models/car_model.dart';
 
 class UserProcress {
   CarDatas cars = CarDatas();

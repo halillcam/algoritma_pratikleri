@@ -1,5 +1,5 @@
-import 'package:dart_application_1/algorithms/kisisel_kitaplik/datas/book_datas.dart';
-import 'package:dart_application_1/algorithms/kisisel_kitaplik/models/book_model.dart';
+import 'package:dart_application_1/dart_tekrarlarim/kisisel_kitaplik/datas/book_datas.dart';
+import 'package:dart_application_1/dart_tekrarlarim/kisisel_kitaplik/models/book_model.dart';
 import "dart:io";
 
 class Procresses {
