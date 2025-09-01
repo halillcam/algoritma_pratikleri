@@ -32,10 +32,13 @@ Future<void> main(List<String> args) async {
   LaboratuvarOrnegi lab = LaboratuvarOrnegi();
   lab.userInformations();
   await lab.kanAlmaIslemi();
-  await Future.delayed(Duration(seconds: 2));
-  print("Sonuclar Bekleniyor....");
-  await Future.delayed(Duration(seconds: 5));
-  print(
-    "hasta bilgileri ve sonuc = ${lab.ad} ${lab.soyad} ${lab.yas} $sonuclar",
-  );
+  await Future.delayed(Duration(seconds: 2), () {
+    print("Sonuclar Bekleniyor....");
+  });
+
+  await Future.delayed(Duration(seconds: 5), () {
+    print(
+      "hasta bilgileri ve sonuc = ${lab.ad} ${lab.soyad} ${lab.yas} $sonuclar",
+    );
+  });
 }
