@@ -1,0 +1,1 @@
+## Bu folder'da eksik olduğum konuları basic projeler yaparak tekrar ediyorum
