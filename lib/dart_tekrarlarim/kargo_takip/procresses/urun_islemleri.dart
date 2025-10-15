@@ -111,4 +111,10 @@ class UrunIslemleri {
 
     yield "Bizi tercih ettiğiniz için teşekkürler.";
   }
+
+  // islemler
+  void procresss() {
+    showItems();
+    chooseItem();
+  }
 }

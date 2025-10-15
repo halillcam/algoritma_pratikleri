@@ -3,6 +3,5 @@ import 'package:dart_application_1/dart_tekrarlarim/kargo_takip/procresses/urun_
 void main(List<String> args) {
   UrunIslemleri urunum = UrunIslemleri();
 
-  urunum.showItems();
-  urunum.chooseItem();
+  urunum.procresss();
 }
