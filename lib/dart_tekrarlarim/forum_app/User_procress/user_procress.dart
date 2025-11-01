@@ -1,23 +1,18 @@
 import 'package:dart_application_1/dart_tekrarlarim/forum_app/datas/post_datas.dart';
 import 'package:dart_application_1/dart_tekrarlarim/forum_app/extensions/post_model_extensions.dart';
+import 'package:dart_application_1/dart_tekrarlarim/forum_app/forum_methods/process_methods.dart';
 import 'package:dart_application_1/dart_tekrarlarim/forum_app/models/post_model.dart';
 import 'package:dart_application_1/dart_tekrarlarim/inputs.dart';
 
-class UserProcress {
+class UserProcress implements IProcessMethods {
   PostDatas posts = PostDatas();
   Inputs userInput = Inputs();
   late String title;
   late String subtitle;
   late String comment;
 
-  void showPosts() {
-    for (int i = 0; i < posts.fetchPosts().length; i++) {
-      var post = posts.fetchPosts()[i];
-      print("${i + 1}) ${post.postTitle} - ${post.postSubTitle}");
-    }
-  }
-
-  void addPost() async {
+  @override
+  Future<void> addPost() async {
     title = userInput.readString("enter title");
     subtitle = userInput.readString("enter subtitle");
     PostModel newPost = PostModel(postTitle: title, postSubTitle: subtitle);
@@ -31,7 +26,8 @@ class UserProcress {
     showPosts();
   }
 
-  void addComments() async {
+  @override
+  Future<void> addComments() async {
     showPosts();
     int index = userInput.readInt(
       "Enter the post number you want to comment on: ",
@@ -60,6 +56,7 @@ class UserProcress {
     selectedPost.showComments();
   }
 
+  @override
   void userProc() {
     print("--- WELCOME TO MLBB MEDIA ----");
     print("1- Show Posts");
@@ -81,9 +78,12 @@ class UserProcress {
         print("Invaild choice");
     }
   }
-}
 
-void main(List<String> args) {
-  UserProcress userProcress = UserProcress();
-  userProcress.userProc();
+  @override
+  void showPosts() {
+    for (int i = 0; i < posts.fetchPosts().length; i++) {
+      var post = posts.fetchPosts()[i];
+      print("${i + 1}) ${post.postTitle} - ${post.postSubTitle}");
+    }
+  }
 }
