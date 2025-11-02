@@ -3,4 +3,6 @@ abstract class IProcessMethods {
   Future<void> addComments() async {}
   Future<void> addPost() async {}
   void userProc() {}
+  Future<void> signUp() async {}
+  Future<void> signIn() async {}
 }

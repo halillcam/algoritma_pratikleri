@@ -1,23 +1,29 @@
 import 'package:dart_application_1/dart_tekrarlarim/forum_app/datas/post_datas.dart';
+import 'package:dart_application_1/dart_tekrarlarim/forum_app/datas/user_datas.dart';
 import 'package:dart_application_1/dart_tekrarlarim/forum_app/extensions/post_model_extensions.dart';
 import 'package:dart_application_1/dart_tekrarlarim/forum_app/forum_methods/process_methods.dart';
 import 'package:dart_application_1/dart_tekrarlarim/forum_app/models/post_model.dart';
+import 'package:dart_application_1/dart_tekrarlarim/forum_app/models/user_model.dart';
 import 'package:dart_application_1/dart_tekrarlarim/inputs.dart';
 
 class UserProcress implements IProcessMethods {
-  PostDatas posts = PostDatas();
-  Inputs userInput = Inputs();
+  final PostDatas _posts = PostDatas();
+  final UserDatas _users = UserDatas();
+  final Inputs _userInput = Inputs();
+
   late String title;
   late String subtitle;
   late String comment;
+  late final String username;
+  late final String password;
 
   @override
   Future<void> addPost() async {
-    title = userInput.readString("enter title");
-    subtitle = userInput.readString("enter subtitle");
+    title = _userInput.readString("enter title");
+    subtitle = _userInput.readString("enter subtitle");
     PostModel newPost = PostModel(postTitle: title, postSubTitle: subtitle);
     print("Post adding ....");
-    posts.addPost(newPost);
+    _posts.addPost(newPost);
     await Future.delayed(Duration(seconds: 2));
     print("Successfull");
     await Future.delayed(Duration(seconds: 1));
@@ -29,15 +35,15 @@ class UserProcress implements IProcessMethods {
   @override
   Future<void> addComments() async {
     showPosts();
-    int index = userInput.readInt(
+    int index = _userInput.readInt(
       "Enter the post number you want to comment on: ",
     );
-    if (index < 1 || index > posts.fetchPosts().length) {
+    if (index < 1 || index > _posts.fetchPosts().length) {
       print("❌ Invalid post number");
       return;
     }
 
-    var selectedPost = posts.fetchPosts()[index - 1];
+    var selectedPost = _posts.fetchPosts()[index - 1];
 
     print("\n--- SELECTED POST ---");
     print("Title: ${selectedPost.postTitle}");
@@ -47,7 +53,7 @@ class UserProcress implements IProcessMethods {
     print("\n--- EXISTING COMMENTS ---");
     selectedPost.showComments(); // varsa mevcut yorumları göster
 
-    String comment = userInput.readString("\nEnter your comment: ");
+    String comment = _userInput.readString("\nEnter your comment: ");
     selectedPost.addComment(comment); // yeni yorumu ekle
     print("Comment adding....");
     await Future.delayed(Duration(seconds: 2));
@@ -60,20 +66,23 @@ class UserProcress implements IProcessMethods {
   void userProc() {
     print("--- WELCOME TO MLBB MEDIA ----");
     print("1- Show Posts");
-    print("2- Add post");
-    print("3- Add post comment");
+    print("2- Sign Up");
+    print("3- Sign In");
+    print("4- add Comment");
 
-    int choice = userInput.readInt("please choice ");
+    int choice = _userInput.readInt("please choice ");
     switch (choice) {
       case 1:
         showPosts();
         break;
       case 2:
-        addPost();
+        signUp();
         break;
       case 3:
-        addComments();
+        signIn();
         break;
+      case 4:
+        addComments();
       default:
         print("Invaild choice");
     }
@@ -81,9 +90,42 @@ class UserProcress implements IProcessMethods {
 
   @override
   void showPosts() {
-    for (int i = 0; i < posts.fetchPosts().length; i++) {
-      var post = posts.fetchPosts()[i];
+    for (int i = 0; i < _posts.fetchPosts().length; i++) {
+      var post = _posts.fetchPosts()[i];
       print("${i + 1}) ${post.postTitle} - ${post.postSubTitle}");
+    }
+  }
+
+  @override
+  Future<void> signUp() async {
+    username = _userInput.readString("username ");
+    password = _userInput.readString("password ");
+    if (username.isNotEmpty && password.isNotEmpty) {
+      print("Checking...");
+      await Future.delayed(Duration(seconds: 2));
+      UserModel newUser = UserModel(username: username, password: password);
+      _users.addUser(newUser);
+      print("Succesfull");
+    } else {
+      print("Error");
+    }
+  }
+
+  @override
+  Future<void> signIn() async {
+    username = _userInput.readString("username ");
+    password = _userInput.readString("password ");
+    if (username.isNotEmpty && password.isNotEmpty) {
+      print("Checking...");
+      await Future.delayed(Duration(seconds: 2));
+      bool checkLogin = _users.checkUser(username, password);
+      if (checkLogin == true) {
+        print("Succesfull");
+      } else {
+        print("Error");
+      }
+    } else {
+      print("Error");
     }
   }
 }
