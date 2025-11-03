@@ -14,8 +14,7 @@ class UserProcress implements IProcessMethods {
   late String title;
   late String subtitle;
   late String comment;
-  late final String username;
-  late final String password;
+  late int choice;
 
   @override
   Future<void> addPost() async {
@@ -68,9 +67,8 @@ class UserProcress implements IProcessMethods {
     print("1- Show Posts");
     print("2- Sign Up");
     print("3- Sign In");
-    print("4- add Comment");
 
-    int choice = _userInput.readInt("please choice ");
+    choice = _userInput.readInt("please choice ");
     switch (choice) {
       case 1:
         showPosts();
@@ -81,8 +79,6 @@ class UserProcress implements IProcessMethods {
       case 3:
         signIn();
         break;
-      case 4:
-        addComments();
       default:
         print("Invaild choice");
     }
@@ -98,14 +94,17 @@ class UserProcress implements IProcessMethods {
 
   @override
   Future<void> signUp() async {
-    username = _userInput.readString("username ");
-    password = _userInput.readString("password ");
+    final String username = _userInput.readString("username ");
+    final String password = _userInput.readString("password ");
     if (username.isNotEmpty && password.isNotEmpty) {
       print("Checking...");
       await Future.delayed(Duration(seconds: 2));
       UserModel newUser = UserModel(username: username, password: password);
       _users.addUser(newUser);
       print("Succesfull");
+      print(".........");
+      await Future.delayed(Duration(seconds: 2));
+      signIn();
     } else {
       print("Error");
     }
@@ -113,19 +112,44 @@ class UserProcress implements IProcessMethods {
 
   @override
   Future<void> signIn() async {
-    username = _userInput.readString("username ");
-    password = _userInput.readString("password ");
+    final String username = _userInput.readString("username ");
+    final String password = _userInput.readString("password ");
     if (username.isNotEmpty && password.isNotEmpty) {
       print("Checking...");
       await Future.delayed(Duration(seconds: 2));
       bool checkLogin = _users.checkUser(username, password);
       if (checkLogin == true) {
-        print("Succesfull");
+        print("Succesfull\n");
+        print(".........");
+        await Future.delayed(Duration(seconds: 2));
+        loginFeatures();
       } else {
         print("Error");
       }
     } else {
       print("Error");
+    }
+  }
+
+  // login switch-case
+  void loginFeatures() {
+    print("----- Login Feautres -----");
+    print("1- Show Posts");
+    print("2- add Post");
+    print("3- add Comment");
+    choice = _userInput.readInt("Please choice");
+    switch (choice) {
+      case 1:
+        showPosts();
+        break;
+      case 2:
+        addPost();
+        break;
+      case 3:
+        addComments();
+        break;
+      default:
+        print("incorrect choice ! ");
     }
   }
 }
