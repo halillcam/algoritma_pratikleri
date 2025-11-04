@@ -23,11 +23,11 @@ class UserProcress implements IProcessMethods {
     PostModel newPost = PostModel(postTitle: title, postSubTitle: subtitle);
     print("Post adding ....");
     _posts.addPost(newPost);
-    await Future.delayed(Duration(seconds: 2));
+    await delayedMethod(second: 2);
     print("Successfull");
-    await Future.delayed(Duration(seconds: 1));
+    await delayedMethod(second: 1);
     print("All posts are showing ...");
-    await Future.delayed(Duration(seconds: 2));
+    await delayedMethod(second: 2);
     showPosts();
   }
 
@@ -48,14 +48,14 @@ class UserProcress implements IProcessMethods {
     print("Title: ${selectedPost.postTitle}");
     print("Subtitle: ${selectedPost.postSubTitle}");
     print("Loading comments ....");
-    await Future.delayed(Duration(seconds: 2));
+    await delayedMethod(second: 2);
     print("\n--- EXISTING COMMENTS ---");
     selectedPost.showComments(); // varsa mevcut yorumları göster
 
     String comment = _userInput.readString("\nEnter your comment: ");
     selectedPost.addComment(comment); // yeni yorumu ekle
     print("Comment adding....");
-    await Future.delayed(Duration(seconds: 2));
+    await delayedMethod(second: 2);
     print("\n✅ Comment added!");
     print("\n--- UPDATED COMMENTS ---");
     selectedPost.showComments();
@@ -98,12 +98,12 @@ class UserProcress implements IProcessMethods {
     final String password = _userInput.readString("password ");
     if (username.isNotEmpty && password.isNotEmpty) {
       print("Checking...");
-      await Future.delayed(Duration(seconds: 2));
+      await delayedMethod(second: 2);
       UserModel newUser = UserModel(username: username, password: password);
       _users.addUser(newUser);
       print("Succesfull");
       print(".........");
-      await Future.delayed(Duration(seconds: 2));
+      await delayedMethod(second: 2);
       signIn();
     } else {
       print("Error");
@@ -116,12 +116,12 @@ class UserProcress implements IProcessMethods {
     final String password = _userInput.readString("password ");
     if (username.isNotEmpty && password.isNotEmpty) {
       print("Checking...");
-      await Future.delayed(Duration(seconds: 2));
+      await delayedMethod(second: 2);
       bool checkLogin = _users.checkUser(username, password);
       if (checkLogin == true) {
-        print("Succesfull\n");
+        print("Succesfull");
         print(".........");
-        await Future.delayed(Duration(seconds: 2));
+        await delayedMethod(second: 2);
         loginFeatures();
       } else {
         print("Error");
@@ -152,4 +152,7 @@ class UserProcress implements IProcessMethods {
         print("incorrect choice ! ");
     }
   }
+
+  Future<dynamic> delayedMethod({required int second}) =>
+      Future.delayed(Duration(seconds: second));
 }
